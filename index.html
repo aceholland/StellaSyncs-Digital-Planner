@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AuraPlanner - Premium Digital & Printable Daily Planner</title>
+  <!-- Google Fonts for premium theme typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Cinzel+Decorative:wght@700&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=Montserrat:ital,wght@0,400;0,600;0,800;1,400&family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Special+Elite&family=Syne:wght@700;800&family=Sacramento&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Caveat:wght@400..700&family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=2142">
+</head>
+<body>
+
+  <!-- App Wrapper -->
+  <div class="app-container">
+    
+    <!-- Hamburger Toggle Button -->
+    <button id="btn-hamburger" class="hamburger-btn no-print" title="Toggle Menu">
+      <span class="line"></span>
+      <span class="line"></span>
+      <span class="line"></span>
+    </button>
+    
+    <!-- Sidebar Control Panel (Hidden on Print) -->
+    <aside class="sidebar no-print">
+      <div class="sidebar-header">
+        <h1 class="logo">AURA<span>PLANNER</span></h1>
+        <p class="tagline">Commercial-Quality Daily Planner Customizer</p>
+      </div>
+
+      <div class="sidebar-content">
+        <!-- Section: Theme Selector -->
+        <section class="control-section">
+          <h2>Select Wallpaper Theme</h2>
+          <div class="theme-grid">
+            
+            <button class="theme-card active" data-theme="concentric-hearts" title="Concentric Hearts">
+              <div class="theme-preview heart-preview"></div>
+              <span>Concentric Hearts</span>
+            </button>
+
+            <button class="theme-card" data-theme="pink-wave" title="Pink Wave">
+              <div class="theme-preview pink-wave-preview"></div>
+              <span>Groovy Pink Wave</span>
+            </button>
+
+            <button class="theme-card" data-theme="coquette" title="Coquette Cherries">
+              <div class="theme-preview coquette-preview"></div>
+              <span>Coquette Bows</span>
+            </button>
+
+            <button class="theme-card" data-theme="retro-brutalist" title="Retro 1975">
+              <div class="theme-preview brutalist-preview"></div>
+              <span>Retro Brutalist</span>
+            </button>
+
+            <button class="theme-card" data-theme="leopard" title="Wild Leopard">
+              <div class="theme-preview leopard-preview"></div>
+              <span>Wild Leopard</span>
+            </button>
+
+            <button class="theme-card" data-theme="amor-minimal" title="Amor Minimal">
+              <div class="theme-preview amor-preview"></div>
+              <span>Amor Minimal</span>
+            </button>
+
+            <button class="theme-card" data-theme="sage-gingham" title="Sage Gingham">
+              <div class="theme-preview sage-preview"></div>
+              <span>Sage Gingham</span>
+            </button>
+
+            <button class="theme-card" data-theme="brown-wave" title="Brown Wave">
+              <div class="theme-preview brown-wave-preview"></div>
+              <span>Groovy Brown</span>
+            </button>
+
+            <button class="theme-card" data-theme="latte-hearts" title="Latte Hearts">
+              <div class="theme-preview latte-preview"></div>
+              <span>Latte Hearts</span>
+            </button>
+
+            <button class="theme-card" data-theme="starry-night" title="Starry Night">
+              <div class="theme-preview starry-preview"></div>
+              <span>Emerald Starry</span>
+            </button>
+
+            <button class="theme-card" data-theme="blue-wave" title="Blue Wave">
+              <div class="theme-preview blue-wave-preview"></div>
+              <span>Groovy Blue</span>
+            </button>
+
+            <button class="theme-card" data-theme="blue-gingham" title="Blue Gingham">
+              <div class="theme-preview blue-gingham-preview"></div>
+              <span>Blue Gingham</span>
+            </button>
+
+            <button class="theme-card" data-theme="crimson-wave" title="Crimson Wave">
+              <div class="theme-preview crimson-wave-preview"></div>
+              <span>Crimson Wave</span>
+            </button>
+
+            <button class="theme-card" data-theme="cherry-jam" title="Cherry Jam">
+              <div class="theme-preview cherry-jam-preview"></div>
+              <span>Glazed Cherry</span>
+            </button>
+
+            <button class="theme-card" data-theme="rustic-red-gingham" title="Rustic Red Gingham">
+              <div class="theme-preview rustic-red-preview"></div>
+              <span>Rustic Gingham</span>
+            </button>
+
+            <button class="theme-card" data-theme="dark-academia" title="Dark Academia">
+              <div class="theme-preview academia-preview"></div>
+              <span>Dark Academia</span>
+            </button>
+
+            <button class="theme-card" data-theme="burgundy-script" title="Burgundy Script">
+              <div class="theme-preview burgundy-preview"></div>
+              <span>Burgundy Script</span>
+            </button>
+
+            <button class="theme-card" data-theme="indie-collage" title="Indie Collage">
+              <div class="theme-preview indie-preview"></div>
+              <span>Indie Collage</span>
+            </button>
+
+            <button class="theme-card" data-theme="midnight-lily" title="Midnight Lily">
+              <div class="theme-preview lily-preview"></div>
+              <span>Midnight Lily</span>
+            </button>
+
+            <button class="theme-card" data-theme="mono-leopard" title="Monochrome Leopard">
+              <div class="theme-preview mono-leopard-preview"></div>
+              <span>Mono Leopard</span>
+            </button>
+
+            <button class="theme-card" data-theme="paris-night" title="Parisian Night">
+              <div class="theme-preview paris-preview"></div>
+              <span>Parisian Night</span>
+            </button>
+
+            <button class="theme-card" data-theme="noir-coquette" title="Noir Coquette">
+              <div class="theme-preview noir-coquette-preview"></div>
+              <span>Noir Coquette</span>
+            </button>
+
+          </div>
+        </section>
+
+        <!-- Section: Layout Options -->
+        <section class="control-section">
+          <h2>Planner Styling</h2>
+          
+          <div class="control-group">
+            <label for="font-adjust">Font Styling</label>
+            <select id="font-adjust" class="sidebar-select">
+              <option value="theme-default">Use Theme Default Font</option>
+              <option value="font-retro-serif">Elegant Serif (Playfair / Instrument)</option>
+              <option value="font-modern-sans">Minimal Sans (Outfit / Inter)</option>
+              <option value="font-vintage-typewriter">Typewriter (Courier Prime / Elite)</option>
+              <option value="font-brutalist-syne">Bold Editorial (Syne / Cinzel)</option>
+              <option value="font-coquette-script">Soft Script (Sacramento)</option>
+              <option value="font-playful-round">Playful Round (Fredoka / Quicksand)</option>
+              <option value="font-editorial-bodoni">Editorial Serif (Bodoni Moda)</option>
+              <option value="font-casual-handwritten">Casual Handwritten (Caveat)</option>
+            </select>
+          </div>
+
+          <div class="control-group">
+            <label for="line-style">Note Field Styling</label>
+            <select id="line-style" class="sidebar-select">
+              <option value="style-lined">Lined Fields</option>
+              <option value="style-dotted">Dotted Grid</option>
+              <option value="style-blank">Blank / Clean Box</option>
+            </select>
+          </div>
+
+          <div class="control-group">
+            <label for="schedule-start">Schedule Start Hour</label>
+            <select id="schedule-start" class="sidebar-select">
+              <option value="4">4:00 AM</option>
+              <option value="5">5:00 AM</option>
+              <option value="6" selected>6:00 AM</option>
+              <option value="7">7:00 AM</option>
+              <option value="8">8:00 AM</option>
+              <option value="9">9:00 AM</option>
+              <option value="10">10:00 AM</option>
+              <option value="11">11:00 AM</option>
+              <option value="12">12:00 PM</option>
+            </select>
+          </div>
+
+          <div class="control-group">
+            <label for="schedule-end">Schedule End Hour</label>
+            <select id="schedule-end" class="sidebar-select">
+              <option value="18">6:00 PM</option>
+              <option value="19">7:00 PM</option>
+              <option value="20">8:00 PM</option>
+              <option value="21">9:00 PM</option>
+              <option value="22" selected>10:00 PM</option>
+              <option value="23">11:00 PM</option>
+              <option value="24">12:00 AM</option>
+              <option value="25">1:00 AM</option>
+              <option value="26">2:00 AM</option>
+            </select>
+          </div>
+
+          <div class="checkbox-options">
+            <label class="control-checkbox">
+              <input type="checkbox" id="show-time-sec" checked>
+              <span>Show Hourly Times</span>
+            </label>
+            <label class="control-checkbox">
+              <input type="checkbox" id="show-water-sec" checked>
+              <span>Show Water Intake</span>
+            </label>
+            <label class="control-checkbox">
+              <input type="checkbox" id="show-mood-sec" checked>
+              <span>Show Mood Tracker</span>
+            </label>
+            <label class="control-checkbox">
+              <input type="checkbox" id="show-meal-sec" checked>
+              <span>Show Meal Planner</span>
+            </label>
+          </div>
+        </section>
+
+        <!-- Section: Actions -->
+        <div class="actions-section">
+          <button id="btn-print" class="btn btn-primary">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 6 2 18 2 18 9"></polyline>
+              <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+              <rect x="6" y="14" width="12" height="8"></rect>
+            </svg>
+            Print Daily Planner
+          </button>
+          
+          <button id="btn-reset" class="btn btn-secondary">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M23 4v6h-6"></path>
+              <path d="M1 20v-6h6"></path>
+              <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+            </svg>
+            Clear All Entries
+          </button>
+        </div>
+
+        <div class="instructions">
+          <p>💡 <strong>Tip:</strong> You can click and type directly into any text block on the planner. When printing, select "Save as PDF" and toggle "Background graphics" ON in the print settings to keep the beautiful wallpaper designs!</p>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Workspace Area -->
+    <main class="workspace">
+
+      <!-- Outer Page container with US Letter aspect ratio -->
+      <div id="planner-page" class="planner-page theme-concentric-hearts style-lined" data-theme="concentric-hearts">
+        
+        <!-- Interactive Wallpaper Background Overlay (Styled via CSS gradients/SVGs) -->
+        <div class="planner-bg"></div>
+        
+        <!-- Planner Frame / Content Wrapper -->
+        <div class="planner-wrapper">
+          
+          <!-- Header Area -->
+          <header class="planner-header">
+            <div class="header-main">
+              <div class="title-area">
+                <!-- User can customize the header title -->
+                <h1 contenteditable="true" spellcheck="false" class="editable-title">daily planner</h1>
+                <div class="subtitle-theme-element"></div>
+              </div>
+              <div class="date-area">
+                <span class="label">DATE:</span>
+                <span contenteditable="true" class="editable-date" placeholder="Write date..."></span>
+              </div>
+            </div>
+            
+            <!-- Weekday Selector -->
+            <div class="weekday-selector">
+              <span class="day-dot" data-day="M">M</span>
+              <span class="day-dot" data-day="T">T</span>
+              <span class="day-dot" data-day="W">W</span>
+              <span class="day-dot" data-day="T2">T</span>
+              <span class="day-dot" data-day="F">F</span>
+              <span class="day-dot" data-day="S">S</span>
+              <span class="day-dot" data-day="S2">S</span>
+            </div>
+          </header>
+
+          <!-- Core Grid Layout -->
+          <div class="planner-grid">
+            
+            <!-- Column 1: Priorities & Schedule -->
+            <div class="planner-col col-left">
+              
+              <!-- Section: Priorities -->
+              <div class="planner-box section-priorities">
+                <h3 class="box-title">Today's Priorities</h3>
+                <div class="box-content lined-inputs">
+                  <div class="priority-row">
+                    <span class="number">1</span>
+                    <div contenteditable="true" class="editable-text line-input" placeholder="My top focus for today..."></div>
+                  </div>
+                  <div class="priority-row">
+                    <span class="number">2</span>
+                    <div contenteditable="true" class="editable-text line-input" placeholder="Second most important thing..."></div>
+                  </div>
+                  <div class="priority-row">
+                    <span class="number">3</span>
+                    <div contenteditable="true" class="editable-text line-input" placeholder="Third key objective..."></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Section: Schedule (6 AM to 10 PM) -->
+              <div class="planner-box section-schedule" id="sec-schedule">
+                <h3 class="box-title">Hourly Schedule</h3>
+                <div class="box-content schedule-inputs" id="schedule-rows-container">
+                  <!-- Generated Dynamically via JS -->
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Column 2: Tasks, Meals, Gratitude & Mood -->
+            <div class="planner-col col-right">
+              
+              <!-- Section: Tasks -->
+              <div class="planner-box section-tasks">
+                <h3 class="box-title">Tasks & To-Do</h3>
+                <div class="box-content task-inputs">
+                  <div class="task-row">
+                    <button class="task-checkbox"></button>
+                    <div contenteditable="true" class="editable-text task-input" placeholder="Add a new task..."></div>
+                  </div>
+                  <div class="task-row">
+                    <button class="task-checkbox"></button>
+                    <div contenteditable="true" class="editable-text task-input" placeholder="Add a new task..."></div>
+                  </div>
+                  <div class="task-row">
+                    <button class="task-checkbox"></button>
+                    <div contenteditable="true" class="editable-text task-input" placeholder="Add a new task..."></div>
+                  </div>
+                  <div class="task-row">
+                    <button class="task-checkbox"></button>
+                    <div contenteditable="true" class="editable-text task-input" placeholder="Add a new task..."></div>
+                  </div>
+                  <div class="task-row">
+                    <button class="task-checkbox"></button>
+                    <div contenteditable="true" class="editable-text task-input" placeholder="Add a new task..."></div>
+                  </div>
+                  <div class="task-row">
+                    <button class="task-checkbox"></button>
+                    <div contenteditable="true" class="editable-text task-input" placeholder="Add a new task..."></div>
+                  </div>
+                  <div class="task-row">
+                    <button class="task-checkbox"></button>
+                    <div contenteditable="true" class="editable-text task-input" placeholder="Add a new task..."></div>
+                  </div>
+                  <div class="task-row">
+                    <button class="task-checkbox"></button>
+                    <div contenteditable="true" class="editable-text task-input" placeholder="Add a new task..."></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Section: Meals -->
+              <div class="planner-box section-meals" id="sec-meals">
+                <h3 class="box-title">Meals & Nutrition</h3>
+                <div class="box-content meals-inputs">
+                  <div class="meal-block">
+                    <span class="meal-label">B</span>
+                    <div contenteditable="true" class="editable-text meal-input" placeholder="Breakfast..."></div>
+                  </div>
+                  <div class="meal-block">
+                    <span class="meal-label">L</span>
+                    <div contenteditable="true" class="editable-text meal-input" placeholder="Lunch..."></div>
+                  </div>
+                  <div class="meal-block">
+                    <span class="meal-label">D</span>
+                    <div contenteditable="true" class="editable-text meal-input" placeholder="Dinner..."></div>
+                  </div>
+                  <div class="meal-block">
+                    <span class="meal-label">S</span>
+                    <div contenteditable="true" class="editable-text meal-input" placeholder="Snack / Treats..."></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Extra row: Water & Mood -->
+              <div class="row-flex">
+                <!-- Section: Water Intake -->
+                <div class="planner-box section-water flex-1" id="sec-water">
+                  <h3 class="box-title">Water Intake</h3>
+                  <div class="box-content water-cups">
+                    <div class="cup-grid">
+                      <span class="cup-icon" data-cup="1" title="Glass 1"></span>
+                      <span class="cup-icon" data-cup="2" title="Glass 2"></span>
+                      <span class="cup-icon" data-cup="3" title="Glass 3"></span>
+                      <span class="cup-icon" data-cup="4" title="Glass 4"></span>
+                      <span class="cup-icon" data-cup="5" title="Glass 5"></span>
+                      <span class="cup-icon" data-cup="6" title="Glass 6"></span>
+                      <span class="cup-icon" data-cup="7" title="Glass 7"></span>
+                      <span class="cup-icon" data-cup="8" title="Glass 8"></span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Section: Mood -->
+                <div class="planner-box section-mood flex-1" id="sec-mood">
+                  <h3 class="box-title">Mood</h3>
+                  <div class="box-content mood-selector">
+                    <div class="mood-grid">
+                      <!-- Custom Styled Mood Icons/Emojis depending on the theme -->
+                      <button class="mood-btn" data-mood="great" title="Great">Great</button>
+                      <button class="mood-btn" data-mood="good" title="Good">Good</button>
+                      <button class="mood-btn" data-mood="neutral" title="Neutral">Neutral</button>
+                      <button class="mood-btn" data-mood="tired" title="Tired">Tired</button>
+                      <button class="mood-btn" data-mood="stressed" title="Stressed">Stressed</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Section: Gratitude -->
+              <div class="planner-box section-gratitude">
+                <h3 class="box-title">Today I am Grateful For...</h3>
+                <div class="box-content gratitude-inputs">
+                  <div contenteditable="true" class="editable-text gratitude-input" placeholder="Start writing something positive..."></div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- Decorative Footer -->
+          <footer class="planner-footer">
+            <div class="footer-decor-line"></div>
+            <div class="footer-text" contenteditable="true" spellcheck="false">Create a life you love. &bull; AuraPlanner Design</div>
+          </footer>
+
+        </div>
+      </div>
+    </main>
+
+  </div>
+
+  <script src="app.js?v=2143"></script>
+</body>
+</html>
