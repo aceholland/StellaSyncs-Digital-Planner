@@ -1,5 +1,5 @@
 /* ==========================================================================
-   AuraPlanner Application Logic
+   StellaSyncs Application Logic
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -34,18 +34,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // LocalStorage keys
   const STORAGE_KEYS = {
-    theme: 'auraplanner_theme',
-    font: 'auraplanner_font',
-    lineStyle: 'auraplanner_linestyle',
-    showSchedule: 'auraplanner_showschedule',
-    showWater: 'auraplanner_showwater',
-    showMood: 'auraplanner_showmood',
-    showMeals: 'auraplanner_showmeals',
-    selectedDay: 'auraplanner_selectedday',
-    selectedMood: 'auraplanner_selectedmood',
-    waterLevel: 'auraplanner_waterlevel',
-    fieldData: 'auraplanner_fielddata',
-    taskStates: 'auraplanner_taskstates'
+    theme: 'stellasyncs_theme',
+    font: 'stellasyncs_font',
+    lineStyle: 'stellasyncs_linestyle',
+    showSchedule: 'stellasyncs_showschedule',
+    showWater: 'stellasyncs_showwater',
+    showMood: 'stellasyncs_showmood',
+    showMeals: 'stellasyncs_showmeals',
+    selectedDay: 'stellasyncs_selectedday',
+    selectedMood: 'stellasyncs_selectedmood',
+    waterLevel: 'stellasyncs_waterlevel',
+    fieldData: 'stellasyncs_fielddata',
+    taskStates: 'stellasyncs_taskstates'
   };
 
   /* ==========================================================================
@@ -347,12 +347,12 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
     
-    localStorage.setItem('auraplanner_sched_start', startSelect.value);
-    localStorage.setItem('auraplanner_sched_end', endSelect.value);
+    localStorage.setItem('stellasyncs_sched_start', startSelect.value);
+    localStorage.setItem('stellasyncs_sched_end', endSelect.value);
     
     let savedEntries = {};
     try {
-      savedEntries = JSON.parse(localStorage.getItem('auraplanner_sched_entries') || '{}');
+      savedEntries = JSON.parse(localStorage.getItem('stellasyncs_sched_entries') || '{}');
     } catch(e) {}
     
     scheduleContainer.innerHTML = '';
@@ -378,7 +378,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Bind inline autosave for schedule row
       inputDiv.addEventListener('input', () => {
         savedEntries[timeLabel] = inputDiv.textContent;
-        localStorage.setItem('auraplanner_sched_entries', JSON.stringify(savedEntries));
+        localStorage.setItem('stellasyncs_sched_entries', JSON.stringify(savedEntries));
       });
       
       row.appendChild(labelSpan);
@@ -414,7 +414,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       // Clear schedule range entries
-      localStorage.removeItem('auraplanner_sched_entries');
+      localStorage.removeItem('stellasyncs_sched_entries');
       renderSchedule();
 
       // Clear related localStorage items
@@ -443,8 +443,8 @@ document.addEventListener('DOMContentLoaded', () => {
     applyLineStyle(savedLineStyle);
 
     // Load schedule start and end configurations
-    const savedStart = localStorage.getItem('auraplanner_sched_start') || '6';
-    const savedEnd = localStorage.getItem('auraplanner_sched_end') || '22';
+    const savedStart = localStorage.getItem('stellasyncs_sched_start') || '6';
+    const savedEnd = localStorage.getItem('stellasyncs_sched_end') || '22';
     startSelect.value = savedStart;
     endSelect.value = savedEnd;
     renderSchedule();
