@@ -7,7 +7,7 @@
   <!-- Google Fonts for premium theme typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Cinzel+Decorative:wght@700&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=Montserrat:ital,wght@0,400;0,600;0,800;1,400&family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Special+Elite&family=Syne:wght@700;800&family=Sacramento&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Caveat:wght@400..700&family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Cinzel+Decorative:wght@700&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=Montserrat:ital,wght@0,400;0,600;0,800;1,400&family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Special+Elite&family=Syne:wght@700;800&family=Sacramento&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Caveat:wght@400..700&family=Fredoka:wght@300..700&family=Dancing+Script:wght@400..700&family=Pacifico&family=Playpen+Sans:wght@300..600&family=Poppins:wght@300..600&family=Lora:ital,wght@0,400..700;1,400..700&family=Cormorant+Garamond:ital,wght@0,400..700;1,400..700&family=Reenie+Beanie&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css?v=2142">
 </head>
 <body>
@@ -25,17 +25,34 @@
     <!-- Sidebar Control Panel (Hidden on Print) -->
     <aside class="sidebar no-print">
       <div class="sidebar-header">
-        <h1 class="logo">AURA<span>PLANNER</span></h1>
+        <h1 class="logo">STELLA<span>SYNCS</span></h1>
         <p class="tagline">Commercial-Quality Daily Planner Customizer</p>
       </div>
 
       <div class="sidebar-content">
+        <!-- Section: Date Selector -->
+        <section class="control-section">
+          <h2>Select Planner Date</h2>
+          <div class="control-group">
+            <input type="date" id="sidebar-date-picker" class="sidebar-select">
+          </div>
+        </section>
         <!-- Section: Theme Selector -->
         <section class="control-section">
           <h2>Select Wallpaper Theme</h2>
           <div class="theme-grid">
             
-            <button class="theme-card active" data-theme="concentric-hearts" title="Concentric Hearts">
+            <button class="theme-card active" data-theme="graph-bw" title="Normal Graph B&W">
+              <div class="theme-preview graph-bw-preview"></div>
+              <span>Normal Graph B&W</span>
+            </button>
+
+            <button class="theme-card" data-theme="graph-black" title="Normal Graph Black">
+              <div class="theme-preview graph-black-preview"></div>
+              <span>Normal Graph Black</span>
+            </button>
+
+            <button class="theme-card" data-theme="concentric-hearts" title="Concentric Hearts">
               <div class="theme-preview heart-preview"></div>
               <span>Concentric Hearts</span>
             </button>
@@ -161,9 +178,16 @@
               <option value="font-vintage-typewriter">Typewriter (Courier Prime / Elite)</option>
               <option value="font-brutalist-syne">Bold Editorial (Syne / Cinzel)</option>
               <option value="font-coquette-script">Soft Script (Sacramento)</option>
-              <option value="font-playful-round">Playful Round (Fredoka / Quicksand)</option>
+              <option value="font-playful-round">Playful Round (Fredoka)</option>
               <option value="font-editorial-bodoni">Editorial Serif (Bodoni Moda)</option>
               <option value="font-casual-handwritten">Casual Handwritten (Caveat)</option>
+              <option value="font-dancing-script">Elegant Script (Dancing Script)</option>
+              <option value="font-pacifico">Retro Casual (Pacifico)</option>
+              <option value="font-playpen">Handwritten Print (Playpen Sans)</option>
+              <option value="font-poppins">Geometric Sans (Poppins)</option>
+              <option value="font-lora">Classic Serif (Lora)</option>
+              <option value="font-cormorant">Sophisticated Serif (Cormorant)</option>
+              <option value="font-sketchy">Sketchy Note (Reenie Beanie)</option>
             </select>
           </div>
 
@@ -172,6 +196,9 @@
             <select id="line-style" class="sidebar-select">
               <option value="style-lined">Lined Fields</option>
               <option value="style-dotted">Dotted Grid</option>
+              <option value="style-grid">Graph Grid</option>
+              <option value="style-dashed">Dashed Lined</option>
+              <option value="style-underlined">Underlined Rows</option>
               <option value="style-blank">Blank / Clean Box</option>
             </select>
           </div>
@@ -248,7 +275,7 @@
         </div>
 
         <div class="instructions">
-          <p>💡 <strong>Tip:</strong> You can click and type directly into any text block on the planner. When printing, select "Save as PDF" and toggle "Background graphics" ON in the print settings to keep the beautiful wallpaper designs!</p>
+          <p><strong>Tip:</strong> You can click and type directly into any text block on the planner. When printing, select "Save as PDF" and toggle "Background graphics" ON in the print settings to keep the beautiful wallpaper designs!</p>
         </div>
       </div>
     </aside>
@@ -257,7 +284,7 @@
     <main class="workspace">
 
       <!-- Outer Page container with US Letter aspect ratio -->
-      <div id="planner-page" class="planner-page theme-concentric-hearts style-lined" data-theme="concentric-hearts">
+      <div id="planner-page" class="planner-page theme-graph-bw style-lined" data-theme="graph-bw">
         
         <!-- Interactive Wallpaper Background Overlay (Styled via CSS gradients/SVGs) -->
         <div class="planner-bg"></div>
@@ -299,7 +326,7 @@
               
               <!-- Section: Priorities -->
               <div class="planner-box section-priorities">
-                <h3 class="box-title">Today's Priorities</h3>
+                <h3 class="box-title">Today's Priorities <button class="add-btn no-print" id="add-priority" title="Add Priority">+</button></h3>
                 <div class="box-content lined-inputs">
                   <div class="priority-row">
                     <span class="number">1</span>
@@ -318,7 +345,7 @@
 
               <!-- Section: Schedule (6 AM to 10 PM) -->
               <div class="planner-box section-schedule" id="sec-schedule">
-                <h3 class="box-title">Hourly Schedule</h3>
+                <h3 class="box-title">Hourly Schedule <button class="add-btn no-print" id="add-schedule-hour" title="Add Hour">+</button></h3>
                 <div class="box-content schedule-inputs" id="schedule-rows-container">
                   <!-- Generated Dynamically via JS -->
                 </div>
@@ -331,7 +358,7 @@
               
               <!-- Section: Tasks -->
               <div class="planner-box section-tasks">
-                <h3 class="box-title">Tasks & To-Do</h3>
+                <h3 class="box-title">Tasks & To-Do <button class="add-btn no-print" id="add-task" title="Add Task">+</button></h3>
                 <div class="box-content task-inputs">
                   <div class="task-row">
                     <button class="task-checkbox"></button>
@@ -370,7 +397,7 @@
 
               <!-- Section: Meals -->
               <div class="planner-box section-meals" id="sec-meals">
-                <h3 class="box-title">Meals & Nutrition</h3>
+                <h3 class="box-title">Meals & Nutrition <button class="add-btn no-print" id="add-meal" title="Add Meal">+</button></h3>
                 <div class="box-content meals-inputs">
                   <div class="meal-block">
                     <span class="meal-label">B</span>
@@ -395,7 +422,7 @@
               <div class="row-flex">
                 <!-- Section: Water Intake -->
                 <div class="planner-box section-water flex-1" id="sec-water">
-                  <h3 class="box-title">Water Intake</h3>
+                  <h3 class="box-title">Water Intake <button class="add-btn no-print" id="add-water" title="Add Glass">+</button></h3>
                   <div class="box-content water-cups">
                     <div class="cup-grid">
                       <span class="cup-icon" data-cup="1" title="Glass 1"></span>
@@ -412,7 +439,7 @@
 
                 <!-- Section: Mood -->
                 <div class="planner-box section-mood flex-1" id="sec-mood">
-                  <h3 class="box-title">Mood</h3>
+                  <h3 class="box-title">Mood <button class="add-btn no-print" id="add-mood" title="Add Custom Mood">+</button></h3>
                   <div class="box-content mood-selector">
                     <div class="mood-grid">
                       <!-- Custom Styled Mood Icons/Emojis depending on the theme -->
@@ -428,7 +455,7 @@
 
               <!-- Section: Gratitude -->
               <div class="planner-box section-gratitude">
-                <h3 class="box-title">Today I am Grateful For...</h3>
+                <h3 class="box-title">Today I am Grateful For... <button class="add-btn no-print" id="add-gratitude" title="Add Gratitude Row">+</button></h3>
                 <div class="box-content gratitude-inputs">
                   <div contenteditable="true" class="editable-text gratitude-input" placeholder="Start writing something positive..."></div>
                 </div>

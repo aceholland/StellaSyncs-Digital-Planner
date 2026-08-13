@@ -4,7 +4,8 @@
   "description": "Premium Digital & Printable Daily Planner Customizer",
   "main": "app.js",
   "scripts": {
-    "start": "npx http-server -p 3000"
+    "start": "npx http-server -p 3000",
+    "dev": "npx http-server -p 3000"
   },
   "dependencies": {},
   "devDependencies": {
