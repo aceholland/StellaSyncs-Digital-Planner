@@ -19,6 +19,20 @@ document.addEventListener('DOMContentLoaded', () => {
   const startSelect = document.getElementById('schedule-start');
   const endSelect = document.getElementById('schedule-end');
   const scheduleContainer = document.getElementById('schedule-rows-container');
+  const darkModeToggle = document.getElementById('dark-mode-toggle');
+  
+  // AI Generator Elements
+  const aiTaskInput = document.getElementById('ai-task-input');
+  const btnGenerateAi = document.getElementById('btn-generate-ai');
+  const btnGenerateAiText = document.getElementById('btn-generate-ai-text');
+  const aiErrorMsg = document.getElementById('ai-error-msg');
+  
+  // History Modal Elements
+  const historyBtn = document.getElementById('btn-history');
+  const historyModal = document.getElementById('history-modal');
+  const closeHistoryBtn = document.getElementById('close-history');
+  const historyList = document.getElementById('history-list');
+  const historyActiveDateDisplay = document.getElementById('history-active-date-display');
   
   // Weekday select elements
   const dayDots = document.querySelectorAll('.day-dot');
@@ -309,7 +323,8 @@ document.addEventListener('DOMContentLoaded', () => {
       footer,
       schedStart,
       schedEnd,
-      schedEntries
+      schedEntries,
+      originalInputText: aiTaskInput.value // Save AI prompt
     };
 
     localStorage.setItem('stellasyncs_diary_' + currentDate, JSON.stringify(dayObj));
@@ -357,9 +372,13 @@ document.addEventListener('DOMContentLoaded', () => {
         footer: 'Create a life you love. \u2022 StellaSyncs Design',
         schedStart: 6,
         schedEnd: 22,
-        schedEntries: {}
+        schedEntries: {},
+        originalInputText: ''
       };
     }
+
+    // Populate AI Input text
+    aiTaskInput.value = data.originalInputText || '';
 
     // Populate standard headers
     document.querySelector('.editable-title').textContent = data.title || 'daily planner';
@@ -475,6 +494,42 @@ document.addEventListener('DOMContentLoaded', () => {
         saveCurrentDayData();
       });
 
+      // Drag and Drop Logic
+      inputDiv.setAttribute('draggable', 'true');
+      
+      inputDiv.addEventListener('dragstart', (e) => {
+        e.dataTransfer.setData('text/plain', inputDiv.textContent);
+        inputDiv.classList.add('dragging');
+      });
+
+      inputDiv.addEventListener('dragend', () => {
+        inputDiv.classList.remove('dragging');
+        document.querySelectorAll('.schedule-input').forEach(el => el.classList.remove('drag-over'));
+      });
+
+      inputDiv.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        inputDiv.classList.add('drag-over');
+      });
+
+      inputDiv.addEventListener('dragleave', () => {
+        inputDiv.classList.remove('drag-over');
+      });
+
+      inputDiv.addEventListener('drop', (e) => {
+        e.preventDefault();
+        inputDiv.classList.remove('drag-over');
+        const draggedText = e.dataTransfer.getData('text/plain');
+        
+        const draggingEl = document.querySelector('.dragging');
+        if (draggingEl && draggingEl !== inputDiv) {
+          // Swap text
+          draggingEl.textContent = inputDiv.textContent;
+          inputDiv.textContent = draggedText;
+          saveCurrentDayData();
+        }
+      });
+
       row.appendChild(labelSpan);
       row.appendChild(inputDiv);
       scheduleContainer.appendChild(row);
@@ -564,6 +619,73 @@ document.addEventListener('DOMContentLoaded', () => {
     container.appendChild(newRow);
     newRow.focus();
     saveCurrentDayData();
+  });
+
+  /* ==========================================================================
+     6.5 AI Schedule Generation Logic
+     ========================================================================== */
+  btnGenerateAi.addEventListener('click', () => {
+    const tasksInput = aiTaskInput.value.trim();
+    if (!tasksInput) {
+      aiErrorMsg.textContent = "Please enter some tasks first.";
+      aiErrorMsg.style.display = 'block';
+      return;
+    }
+
+    aiErrorMsg.style.display = 'none';
+
+    // Client-side fallback algorithm instead of API
+    try {
+      // Split by commas or newlines and clean up
+      const rawTasks = tasksInput.split(/[\n,]+/).map(t => t.trim()).filter(t => t.length > 0);
+      
+      const parsedTasks = rawTasks.map(taskStr => {
+        let priority = 5; // Default middle priority
+        let cleanTask = taskStr;
+        
+        // Look for a number between 1 and 10 isolated by spaces, brackets, colons, or dashes
+        const match = taskStr.match(/(?:^|\s|\(|\[)(10|[1-9])(?:$|\s|\)|\]|:|-)/);
+        if (match) {
+          priority = parseInt(match[1], 10);
+          // Remove the priority number from the display text
+          cleanTask = taskStr.replace(match[0], ' ').trim();
+          // Clean up any dangling punctuation
+          cleanTask = cleanTask.replace(/^[^\w]+|[^\w]+$/g, '').trim(); 
+        }
+        
+        return { text: cleanTask || taskStr, priority };
+      });
+
+      // Sort descending by priority (10 is highest)
+      parsedTasks.sort((a, b) => b.priority - a.priority);
+      const sortedTasksList = parsedTasks.map(pt => pt.text);
+
+      const startHour = parseInt(startSelect.value, 10);
+      const currentEntries = {};
+
+      // 1. Assign top 3 tasks to Priorities
+      const priorityInputs = document.querySelectorAll('.section-priorities .priority-row .line-input');
+      for (let i = 0; i < priorityInputs.length; i++) {
+        priorityInputs[i].textContent = sortedTasksList[i] || '';
+      }
+
+      // 2. Assign tasks to consecutive hour slots
+      let currentHour = startHour;
+      for (const task of sortedTasksList) {
+        if (currentHour > 26) break; // Don't exceed 2:00 AM limit
+        const timeLabel = formatHourLabel(currentHour);
+        currentEntries[timeLabel] = task;
+        currentHour++; // Assume 1 hour per task for the simple algorithm
+      }
+
+      renderSchedule(currentEntries);
+      saveCurrentDayData();
+
+    } catch (error) {
+      console.error(error);
+      aiErrorMsg.textContent = "Error: " + error.message;
+      aiErrorMsg.style.display = 'block';
+    }
   });
 
   /* ==========================================================================
@@ -698,6 +820,111 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  /* ==========================================================================
+     10. History Modal & Duplication Logic
+     ========================================================================== */
+  historyBtn.addEventListener('click', () => {
+    openHistoryModal();
+  });
+
+  closeHistoryBtn.addEventListener('click', () => {
+    historyModal.classList.add('hidden');
+  });
+
+  historyModal.addEventListener('click', (e) => {
+    if (e.target === historyModal) {
+      historyModal.classList.add('hidden');
+    }
+  });
+
+  function openHistoryModal() {
+    historyActiveDateDisplay.textContent = formatDateLong(currentDate);
+    historyList.innerHTML = '';
+
+    // Gather all saved dates
+    const savedDates = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key.startsWith('stellasyncs_diary_')) {
+        const dateStr = key.replace('stellasyncs_diary_', '');
+        savedDates.push(dateStr);
+      }
+    }
+
+    // Sort descending
+    savedDates.sort((a, b) => new Date(b) - new Date(a));
+
+    if (savedDates.length === 0) {
+      historyList.innerHTML = '<p style="color:var(--sidebar-text-muted); font-size: 0.9rem;">No saved plans found yet.</p>';
+    } else {
+      savedDates.forEach(dateStr => {
+        if (dateStr === currentDate) return; // Skip current date
+
+        const itemDataRaw = localStorage.getItem('stellasyncs_diary_' + dateStr);
+        if (!itemDataRaw) return;
+        const itemData = JSON.parse(itemDataRaw);
+        
+        // Count tasks completed vs total for preview
+        const totalTasks = itemData.tasks ? itemData.tasks.length : 0;
+        const completedTasks = itemData.tasks ? itemData.tasks.filter(t => t.completed && t.text.trim() !== '').length : 0;
+        const validTasks = itemData.tasks ? itemData.tasks.filter(t => t.text.trim() !== '').length : 0;
+
+        const itemEl = document.createElement('div');
+        itemEl.className = 'history-item';
+        itemEl.innerHTML = `
+          <div>
+            <div class="history-date">${formatDateLong(dateStr)}</div>
+            <div class="history-tasks-preview">${validTasks} tasks written (${completedTasks} completed)</div>
+          </div>
+          <button class="btn-duplicate" data-date="${dateStr}">Duplicate</button>
+        `;
+        historyList.appendChild(itemEl);
+      });
+    }
+
+    // Bind duplicate buttons
+    document.querySelectorAll('.btn-duplicate').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const sourceDate = e.target.getAttribute('data-date');
+        duplicatePlan(sourceDate, currentDate);
+      });
+    });
+
+    historyModal.classList.remove('hidden');
+  }
+
+  function duplicatePlan(sourceDate, targetDate) {
+    if (confirm(`Are you sure you want to overwrite your plan for ${formatDateLong(targetDate)} with the plan from ${formatDateLong(sourceDate)}?`)) {
+      const sourceDataRaw = localStorage.getItem('stellasyncs_diary_' + sourceDate);
+      if (sourceDataRaw) {
+        const sourceData = JSON.parse(sourceDataRaw);
+        // Ensure date text is updated to target date
+        sourceData.dateText = formatDateLong(targetDate);
+        // Reset completed status on tasks for the new day
+        if (sourceData.tasks) {
+          sourceData.tasks.forEach(t => t.completed = false);
+        }
+        // Save as current
+        localStorage.setItem('stellasyncs_diary_' + targetDate, JSON.stringify(sourceData));
+        loadDayData(targetDate);
+        historyModal.classList.add('hidden');
+      }
+    }
+  }
+
+  /* ==========================================================================
+     11. Dark/Light Mode Logic
+     ========================================================================== */
+  darkModeToggle.addEventListener('change', (e) => {
+    const isDark = e.target.checked;
+    if (isDark) {
+      document.body.classList.remove('light-mode');
+    } else {
+      document.body.classList.add('light-mode');
+    }
+    localStorage.setItem('stellasyncs_dark_mode', isDark);
+  });
+
   // Event Delegation for Contenteditable Inputs
   plannerPage.addEventListener('input', (e) => {
     if (e.target.matches('[contenteditable="true"]')) {
@@ -761,6 +988,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const showMeals = localStorage.getItem(GLOBAL_KEYS.showMeals) !== 'false';
     toggleSection('meals', showMeals);
+
+    // Load Dark/Light Mode Preference (Default to Dark)
+    const savedDarkMode = localStorage.getItem('stellasyncs_dark_mode');
+    const isDark = savedDarkMode !== 'false'; // true by default
+    darkModeToggle.checked = isDark;
+    if (!isDark) {
+      document.body.classList.add('light-mode');
+    }
 
     // Load diary entries and schedule for current date
     loadDayData(currentDate);

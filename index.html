@@ -37,6 +37,23 @@
             <input type="date" id="sidebar-date-picker" class="sidebar-select">
           </div>
         </section>
+
+        <!-- Section: AI Schedule Generator -->
+        <section class="control-section">
+          <h2>AI Schedule Generator</h2>
+          <div class="control-group">
+            <label for="ai-task-input">Brain dump your tasks (1-10 priority):</label>
+            <textarea id="ai-task-input" class="sidebar-select" rows="4" placeholder="e.g. gym (10), buy groceries (5), finish project report (9)"></textarea>
+          </div>
+          <button id="btn-generate-ai" class="btn btn-primary" style="margin-top: 5px;">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+            </svg>
+            <span id="btn-generate-ai-text">Generate Schedule</span>
+          </button>
+          <div id="ai-error-msg" style="color: #ff4d6d; font-size: 0.8rem; display: none; margin-top: 5px;"></div>
+        </section>
+
         <!-- Section: Theme Selector -->
         <section class="control-section">
           <h2>Select Wallpaper Theme</h2>
@@ -251,10 +268,24 @@
               <span>Show Meal Planner</span>
             </label>
           </div>
+
+          <div class="control-group" style="margin-top: 15px;">
+            <label class="control-checkbox">
+              <input type="checkbox" id="dark-mode-toggle">
+              <span>Dark Mode Workspace</span>
+            </label>
+          </div>
         </section>
 
         <!-- Section: Actions -->
         <div class="actions-section">
+          <button id="btn-history" class="btn btn-secondary">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            View History & Past Plans
+          </button>
+
           <button id="btn-print" class="btn btn-primary">
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="6 9 6 2 18 2 18 9"></polyline>
@@ -475,6 +506,22 @@
       </div>
     </main>
 
+  </div>
+
+  <!-- History Modal -->
+  <div id="history-modal" class="modal-overlay hidden no-print">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Planner History</h2>
+        <button id="close-history" class="close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="history-desc">Select a past date to copy its plan to your active date (<span id="history-active-date-display"></span>).</p>
+        <div id="history-list" class="history-list">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
   </div>
 
   <script src="app.js?v=2143"></script>

@@ -216,6 +216,11 @@ body {
   transition: border-color 0.2s ease;
 }
 
+.sidebar-select option {
+  background: #2a2a2a;
+  color: #fff;
+}
+
 .sidebar-select:focus {
   border-color: var(--sidebar-accent);
   outline: none;
@@ -335,7 +340,7 @@ body {
   background-color: var(--theme-bg-color);
   position: relative;
   overflow: hidden;
-  padding: 40px 50px;
+  padding: 80px 50px 40px 50px; /* Top padding increased to clear hamburger menu */
   display: flex;
   flex-direction: column;
   transition: all 0.3s ease;
@@ -1782,3 +1787,93 @@ body {
     margin: 0;
   }
 }
+
+/* ==========================================================================
+   11. Light Mode Overrides
+   ========================================================================== */
+body.light-mode {
+  --workspace-bg: #e0e0e0;
+  --sidebar-bg: rgba(255, 255, 255, 0.95);
+  --sidebar-border: rgba(0, 0, 0, 0.1);
+  --sidebar-text: #222222;
+  --sidebar-text-muted: #666666;
+}
+body.light-mode .sidebar-select {
+  background: rgba(0, 0, 0, 0.05);
+  color: #222;
+}
+body.light-mode .sidebar-select option {
+  background: #fff;
+  color: #222;
+}
+body.light-mode .logo { color: #222; }
+body.light-mode .btn-secondary { color: #222; }
+
+/* ==========================================================================
+   12. History Modal Styles
+   ========================================================================== */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  display: flex; justify-content: center; align-items: center;
+  backdrop-filter: blur(5px);
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+.modal-overlay.hidden {
+  opacity: 0; pointer-events: none; visibility: hidden;
+}
+.modal-content {
+  background: var(--sidebar-bg);
+  border: 1px solid var(--sidebar-border);
+  color: var(--sidebar-text);
+  width: 90%; max-width: 500px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+.modal-header {
+  padding: 20px;
+  border-bottom: 1px solid var(--sidebar-border);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.modal-header h2 { font-size: 1.2rem; color: var(--sidebar-accent); text-transform: uppercase; letter-spacing: 1px; }
+.close-btn { background: none; border: none; color: var(--sidebar-text); font-size: 1.8rem; cursor: pointer; line-height: 1; outline: none; }
+.close-btn:hover { color: var(--sidebar-accent); }
+.modal-body { padding: 20px; max-height: 60vh; overflow-y: auto; }
+.history-desc { font-size: 0.85rem; color: var(--sidebar-text-muted); margin-bottom: 15px; }
+.history-list { display: flex; flex-direction: column; gap: 10px; }
+.history-item {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--sidebar-border);
+  padding: 12px 15px;
+  border-radius: 8px;
+  display: flex; justify-content: space-between; align-items: center;
+  transition: all 0.2s ease;
+}
+.history-item:hover { background: rgba(255, 255, 255, 0.1); }
+.history-date { font-weight: 600; font-size: 0.95rem; }
+.history-tasks-preview { font-size: 0.75rem; color: var(--sidebar-text-muted); margin-top: 4px; }
+.btn-duplicate {
+  background: var(--sidebar-accent); color: #fff;
+  border: none; padding: 6px 12px; border-radius: 4px;
+  font-size: 0.8rem; font-weight: 600; cursor: pointer;
+  transition: background 0.2s ease;
+}
+.btn-duplicate:hover { background: var(--sidebar-accent-hover); }
+
+
+textarea.sidebar-select {
+  resize: vertical;
+  min-height: 80px;
+}
+.btn.loading .icon {
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+
