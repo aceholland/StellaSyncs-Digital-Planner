@@ -749,10 +749,14 @@ document.addEventListener('DOMContentLoaded', () => {
       'theme-midnight-lily', 'theme-mono-leopard', 'theme-paris-night',
       'theme-noir-coquette'
     ];
-    themes.forEach(t => plannerPage.classList.remove(t));
+    themes.forEach(t => {
+      plannerPage.classList.remove(t);
+      document.body.classList.remove(t);
+    });
     
     plannerPage.classList.add(`theme-${themeName}`);
     plannerPage.setAttribute('data-theme', themeName);
+    document.body.classList.add(`theme-${themeName}`);
 
     themeCards.forEach(card => {
       if (card.dataset.theme === themeName) {

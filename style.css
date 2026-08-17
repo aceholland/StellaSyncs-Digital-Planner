@@ -9,8 +9,8 @@
   --sidebar-border: rgba(255, 255, 255, 0.08);
   --sidebar-text: #f0f0f0;
   --sidebar-text-muted: #a0a0a0;
-  --sidebar-accent: #ff758f;
-  --sidebar-accent-hover: #ff4d6d;
+  --sidebar-accent: var(--theme-primary-color, #ff758f);
+  --sidebar-accent-hover: var(--theme-accent-color, #ff4d6d);
   --workspace-bg: #121212;
 
   /* Theme Defaults (Overwritten dynamically by active theme) */
@@ -1562,7 +1562,7 @@ body {
   width: 44px;
   height: 44px;
   background: var(--sidebar-bg);
-  border: 1px solid var(--sidebar-border);
+  border: 1.5px solid var(--theme-primary-color, var(--sidebar-border));
   border-radius: 50%;
   display: flex;
   flex-direction: column;
@@ -1579,7 +1579,7 @@ body {
 
 .hamburger-btn:hover {
   background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.25);
+  border-color: var(--theme-accent-color, var(--sidebar-accent-hover));
   transform: scale(1.05);
 }
 
@@ -1587,7 +1587,7 @@ body {
   display: block;
   width: 18px;
   height: 2px;
-  background-color: var(--sidebar-text);
+  background-color: var(--theme-primary-color, var(--sidebar-text));
   border-radius: 2px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
