@@ -40,6 +40,52 @@ document.addEventListener('DOMContentLoaded', () => {
   // Date Picker
   const datePicker = document.getElementById('sidebar-date-picker');
 
+  // PWA Install Elements & State
+  const installBtn = document.getElementById('btn-install-app');
+  let deferredPrompt = null;
+
+  // Register Service Worker
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js')
+        .then(reg => console.log('Service Worker registered successfully!', reg.scope))
+        .catch(err => console.error('Service Worker registration failed:', err));
+    });
+  }
+
+  // PWA Install Event Handler
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    if (installBtn) {
+      installBtn.classList.remove('hidden-el');
+    }
+  });
+
+  if (installBtn) {
+    installBtn.addEventListener('click', () => {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('User accepted the PWA install prompt');
+        } else {
+          console.log('User dismissed the PWA install prompt');
+        }
+        deferredPrompt = null;
+        installBtn.classList.add('hidden-el');
+      });
+    });
+  }
+
+  window.addEventListener('appinstalled', () => {
+    console.log('StellaSyncs app installed successfully!');
+    if (installBtn) {
+      installBtn.classList.add('hidden-el');
+    }
+  });
+
+
   // LocalStorage keys for global configurations
   const GLOBAL_KEYS = {
     theme: 'stellasyncs_theme',

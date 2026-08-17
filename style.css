@@ -1877,3 +1877,9 @@ textarea.sidebar-select {
   100% { transform: rotate(360deg); }
 }
 
+/* PWA Utility Styles */
+.hidden-el {
+  display: none !important;
+}
+
+
