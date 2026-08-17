@@ -1689,6 +1689,22 @@ body {
   }
 }
 
+@media (max-width: 600px) {
+  .header-main {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  .editable-title {
+    font-size: 2.2rem;
+    min-width: auto;
+  }
+  .date-area {
+    margin-top: 5px;
+  }
+}
+
+
 /* ==========================================================================
    9. Print CSS Stylesheets
    ========================================================================== */
